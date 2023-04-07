@@ -23,7 +23,6 @@ public class Main {
 	static int m;
 	static int[][] arr;
 	static int[][][] res;
-	static boolean[][] vis;
 	static int[] dc = { -1, 1, 0, 0 };
 	static int[] dr = { 0, 0, 1, -1 };
 	static int min = 111111111;
@@ -33,7 +32,6 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
-		vis = new boolean[n][m];
 		arr = new int[n][m];
 		res = new int[n][m][2];
 		for (int i = 0; i < n; i++) {
@@ -49,21 +47,8 @@ public class Main {
 				arr[i][j] = Integer.parseInt(a[j]);
 			}
 		}
-//		for (int i = 0; i < n; i++) {
-//			System.out.println(Arrays.toString(arr[i]));
-//		}
-
-//		vis[0][0] = true;
 		dfs(0, 0, 0);
 
-//		for (int i = 0; i < n; i++) {
-//			System.out.println(Arrays.toString(res[i]));
-//		}
-//		if (res[n-1][m-1] == 111111111) {
-//			System.out.println(-1);
-//		} else {
-//			System.out.println(res[n-1][m-1]);
-//		}
 		int a = res[n - 1][m - 1][0];
 		int b = res[n - 1][m - 1][1];
 		if(a==111111111&&b==111111111) {
@@ -71,49 +56,31 @@ public class Main {
 		}else {
 			System.out.println(Math.min(a, b));
 		}
-//		System.out.println(res[n - 1][m - 1][0]);
-//		System.out.println(res[n - 1][m - 1][1]);
 	}
 
 	static void dfs(int a, int b, int bbang) {
 		Queue<pair> q = new LinkedList<pair>();
 		q.add(new pair(a, b, bbang));
-		vis[a][b] = true;
 		res[a][b][bbang] = 1;
 		while (!q.isEmpty()) {
 			pair p = q.poll();
-			vis[p.x][p.y] = true;
 			for (int i = 0; i < 4; i++) {
 				int x = p.x + dc[i];
 				int y = p.y + dr[i];
 				if (check(x, y) && res[x][y][p.z]==111111111) {
 					if (arr[x][y] == 0) {
-						res[x][y][p.z] = Math.min(res[x][y][p.z], res[p.x][p.y][p.z] + 1);
-//						vis[x][y] = true;
+//						res[x][y][p.z] = Math.min(res[x][y][p.z], res[p.x][p.y][p.z] + 1);
+						res[x][y][p.z] = res[p.x][p.y][p.z] + 1;
 						q.add(new pair(x, y, p.z));
 					}
 					if (p.z == 0 && arr[x][y] == 1) {
-						res[x][y][1] = Math.min(res[x][y][p.z], res[p.x][p.y][p.z] + 1);
-//						vis[x][y] = true;
+//						res[x][y][1] = Math.min(res[x][y][p.z], res[p.x][p.y][p.z] + 1);
+						res[x][y][1] = res[p.x][p.y][p.z] + 1;
 						q.add(new pair(x, y, 1));
 					}
 				}
 			}
 			
-////			System.out.println("0==========================");
-//			for (int i = 0; i < n; i++) {
-//				for(int j = 0; j<m; j++) {
-//					System.out.print(res[i][j][0]+" ");;
-//				}
-//				System.out.println();
-//			}
-////			System.out.println("1=========dldld===========");
-//			for (int i = 0; i < n; i++) {
-//				for(int j = 0; j<m; j++) {
-//					System.out.print(res[i][j][1]+" ");;
-//				}
-//				System.out.println();
-//			}
 		}
 	}
 
