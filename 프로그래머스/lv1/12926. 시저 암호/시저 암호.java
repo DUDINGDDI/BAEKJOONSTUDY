@@ -1,0 +1,26 @@
+class Solution {
+    public String solution(String s, int n) {
+        String answer = "";
+        char[] ch = s.toCharArray();
+        //97 122 65 90 32
+        for(int i = 0; i<ch.length; i++){
+            if(ch[i]==32){
+                answer += ch[i];
+                continue;
+            }
+            if(ch[i]>=97&&ch[i]<=122){
+                ch[i]+=n;
+                if(ch[i]>122){
+                    ch[i] -= 26;
+                }
+            }else if(ch[i]<=90&&ch[i]>=65){
+                ch[i]+=n;
+                if(ch[i]>90){
+                    ch[i] -= 26;
+                }
+            }
+            answer += ch[i];
+        }
+        return answer;
+    }
+}
