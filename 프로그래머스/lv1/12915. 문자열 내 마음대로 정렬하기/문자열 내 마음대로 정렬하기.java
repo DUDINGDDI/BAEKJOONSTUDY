@@ -9,13 +9,6 @@ class Solution {
                 }else if(o1.charAt(n)<o2.charAt(n)){
                     return -1;
                 }else{
-                    for(int i = 0; i<((o1.length()>o2.length())?o2.length():o1.length()); i++){
-                        if(o1.charAt(i)>o2.charAt(i)){
-                            return 1;
-                        }else if(o1.charAt(i)<o2.charAt(i)){
-                            return -1;
-                        }
-                    }
                     return 0;
                 }
             }
