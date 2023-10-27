@@ -8,15 +8,19 @@ public class Main {
 		String str = sc.next();
 		char[] ch = str.toCharArray();
 		int cnt = 0;
-		int size = 2 * n + 1;
-		m: for (int i = 0; i < (s - size+1); i++) {
-			for (int j = 0; j < size; j++) {
-				if ((j % 2 == 0 && ch[i + j] == 'O') || (j % 2 == 1 && ch[i + j] == 'I')) {
-					continue m;
+		int res = 0;
+		for (int i = 1; i < (s - 1); i++) {
+			if (ch[i - 1] == 'I' && ch[i] == 'O' && ch[i + 1] == 'I') {
+				cnt++;
+				if (cnt == n) {
+					cnt--;
+					res++;
 				}
+				i++;
+			}else {
+				cnt = 0;
 			}
-			cnt++;
 		}
-		System.out.println(cnt);
+		System.out.println(res);
 	}
 }
